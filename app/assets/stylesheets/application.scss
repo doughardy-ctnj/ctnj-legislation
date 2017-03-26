@@ -13,3 +13,135 @@
  *= require_tree .
  *= require_self
  */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome";
+@import 'https://fonts.googleapis.com/css?family=Oswald:700';
+
+$ctnj-orange: #ff9300;
+$ctnj-blue: #333399;
+$ctnj-gray: #666666;
+$ctnj-headline-color: #37469b;
+$ctnj-background-blue: #cccce0;
+
+h1, h2, h3, h4, h5, h6 {
+  color: $ctnj-headline-color;
+}
+
+h1 {
+  text-align: center;
+}
+
+.ad {
+  align: center;
+  margin: 1em auto;
+  @media (min-width: 1200px) { width: 970px; }
+}
+
+.btn-default {
+  background-color: $ctnj-gray;
+  border-color: $ctnj-gray;
+  color: white;
+
+  a {
+    color: white;
+  }
+  a:hover {
+    background-color: $ctnj-orange;
+  }
+}
+
+.btn-default:hover {
+  background-color: $ctnj-orange;
+}
+
+a.btn-success {
+  margin: 0.5em 0;
+}
+
+a.btn-success:visited {
+  margin: 0.5em 0;
+  color: white;
+}
+
+.content {
+  margin: 0 0.2em;
+}
+
+.twitter, .twitter:visited {
+  background-color: #55acee;
+  color: #ffffff;
+  padding: 1em;
+  display: inline-block;
+}
+
+.facebook, .facebook:visited {
+  background-color: #3b5998;
+  color: #ffffff;
+  padding: 1em;
+  display: inline-block;
+}
+
+.form-inline .form-control {
+    width:auto;
+}
+
+.form-inline .form-group {
+    display: inline-block;
+}
+
+.header {
+  background-color: $ctnj-orange;
+  background: image-url("header-background.jpg");
+  color: white;
+
+  h2 {
+    font-family: 'Oswald', sans-serif;
+  }
+}
+
+.logo {
+  padding: 0;
+}
+
+.media {
+  padding-bottom: 1em;
+}
+
+.menu {
+  background-color: $ctnj-gray;
+  color: white;
+}
+
+.social {
+  text-align: right;
+  margin: 1.70em 0;
+
+  .facebook {
+    padding: 0.2em 0.5em;
+  }
+
+  .twitter {
+    padding: 0.2em 0.3em;
+  }
+}
+
+.footer {
+  margin-top: 1em;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 35px;
+    height: 0;
+    overflow: hidden;
+}
+
+.video-container iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

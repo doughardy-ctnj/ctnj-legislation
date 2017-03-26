@@ -39,6 +39,11 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (7.1.4)
+    autoprefixer-rails (6.4.1.1)
+      execjs
+    bootstrap-sass (3.3.7)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
     builder (3.2.3)
     byebug (9.0.6)
     coderay (1.1.1)
@@ -61,6 +66,8 @@ GEM
       factory_girl (~> 4.8.0)
       railties (>= 3.0.0)
     ffi (1.9.18)
+    font-awesome-rails (4.6.3.1)
+      railties (>= 3.2, < 5.1)
     formatador (0.2.5)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
@@ -83,6 +90,7 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    high_voltage (3.0.0)
     http_parser.rb (0.6.0)
     i18n (0.8.1)
     jbuilder (2.6.3)
@@ -223,12 +231,15 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap-sass
   byebug
   dotenv-rails
   factory_girl_rails
+  font-awesome-rails
   guard
   guard-livereload
   guard-rspec
+  high_voltage
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
