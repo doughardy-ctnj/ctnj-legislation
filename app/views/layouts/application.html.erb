@@ -18,7 +18,7 @@
     <div class="row ad" street-address="81287"></div>
     <div class="row header">
       <div class="col-md-5 col-xs-12 logo">
-        <%= image_tag('ctnj-logo.png', class: 'img-responsive') %>
+        <%= link_to(bills_url) do %><%= image_tag('ctnj-logo.png', class: 'img-responsive') %><% end %>
       </div>
       <div class="col-md-7 hidden-sm hidden-xs social">
         <a href="http://www.twitter.com/ctnewsjunkie"><%= fa_icon 'twitter', class: 'fa-2x twitter' %></a>

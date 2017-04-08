@@ -1,16 +1,22 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @bill.title %>
-</p>
+  <h1><%= @bill.data['bill_id'] %>: <%= @bill.title.titlecase %></h1>
+  <h3><%= link_to 'Official Bill Page', @bill.data['sources'][1]['url']  %></h3>
+  <h3>Sponsors</h3>
+  <ul>
+    <% @bill.data['sponsors'].each do |sponsor| %>
+      <li><%= sponsor['name'] %>, <%= sponsor['official_type'] %></li>
+    <% end %>
+  </ul>
+  <h3>Actions</h3>
+  <table class="table">
+    <% @bill.data['actions'].each do |action| %>
+      <tr>
+        <td><%= action['date'].first(10) %></td>
+        <td><%= action['actor'] %></td>
+        <td><%= action['action'] %></td>
+      </tr>
+    <% end %>
+  </table>
 
-<p>
-  <strong>Data:</strong>
-  <%= @bill.data %>
-</p>
-<p>
-  <strong>Subjects:</strong>
-  <%= @bill.data['subjects'] %>
-</p>
 <%= link_to 'Back', bills_path %>
