@@ -69,4 +69,6 @@ group :development do
   gem 'guard-rspec'
   gem 'guard-livereload'
   gem 'rb-fsevent'
+  gem 'pry-rescue'
+  gem 'pry-stack_explorer'
 end
