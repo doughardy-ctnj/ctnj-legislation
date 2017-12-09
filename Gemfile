@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
+ruby "2.4.2"
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
-
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
@@ -36,6 +36,7 @@ gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 gem 'high_voltage'
 gem 'nokogiri'
+gem 'devise'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -68,6 +69,7 @@ group :development do
   gem 'spring-commands-rspec'
   gem 'guard-rspec'
   gem 'guard-livereload'
+  gem 'terminal-notifier-guard'
   gem 'rb-fsevent'
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
