@@ -68,6 +68,7 @@ namespace :import do
         # Bill Name
         processed_bill_text['Name'] = parsed_text.css('p font b i')[1].text
         # Bill Text
+        parsed_text.css('html > body > p > font[face="Book Antiqua"] text()').wrap('<p>')
         processed_bill_text['Text'] = parsed_text.css('html > body > p > font[face="Book Antiqua"]').inner_html
         processed_bill_text['url'] = version['url']
         every_bill_version << processed_bill_text
