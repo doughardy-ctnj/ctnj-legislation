@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
@@ -37,11 +37,7 @@ gem 'font-awesome-rails'
 gem 'high_voltage'
 gem 'nokogiri'
 gem 'devise'
-
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
-end
+gem 'omniauth-facebook'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
@@ -50,6 +46,13 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-commands-rspec'
+  gem 'guard-rspec'
+  gem 'guard-livereload'
+  gem 'terminal-notifier-guard'
+  gem 'rb-fsevent'
+  gem 'pry-rescue'
+  gem 'pry-stack_explorer'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -60,17 +63,8 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'rails-controller-testing'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'dotenv-rails'
   gem 'guard'
-end
-
-group :development do
-  gem 'spring-commands-rspec'
-  gem 'guard-rspec'
-  gem 'guard-livereload'
-  gem 'terminal-notifier-guard'
-  gem 'rb-fsevent'
-  gem 'pry-rescue'
-  gem 'pry-stack_explorer'
+  gem 'capybara'
 end

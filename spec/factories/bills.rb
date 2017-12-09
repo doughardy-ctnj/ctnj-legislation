@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :bill do
     bill_id "MyString"
     openstate_id "MyString"

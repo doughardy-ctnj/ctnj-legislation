@@ -28,6 +28,12 @@
     <div class="row menu">
       <div class="col-xs-12">
         <div class="btn-group navbar-left" role="group">
+
+          <% if user_signed_in? %>
+            <%= link_to destroy_user_session_path, method: :delete do %><button type="button" class="btn btn-default">Log Out</button><% end %>
+          <% else %>
+            <%= link_to user_facebook_omniauth_authorize_path do %><button type="button" class="btn btn-default">Sign in with Facebook</button><% end %>
+          <% end %>
           <a href="http://www.ctnewsjunkie.com/"><button type="button" class="btn btn-default">News</button></a>
           <a href="http://directory.ctnewsjunkie.com/"><button type="button" class="btn btn-default">The Directory</button></a>
           <a href="http://www.ctnewsjunkie.com/contact/"><button type="button" class="btn btn-default">Contact</button></a>
