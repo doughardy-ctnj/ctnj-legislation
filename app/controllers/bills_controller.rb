@@ -61,6 +61,28 @@ class BillsController < ApplicationController
     end
   end
 
+  def vote
+    if Vote.find_by_user_id_and_bill_id(current_user.id, params[:bill_id])
+      respond_to do |format|
+        format.html { redirect_back fallback_location: root_path, alert: 'Sorry, you already supported this bill.' }
+        format.json { render json: @vote.errors, status: :unprocessable_entity }
+      end
+    else
+      @vote = Vote.new(user_id: current_user.id,
+                       bill_id: params[:bill_id],
+                       points: params[:points])
+      respond_to do |format|
+        if @vote.save
+          format.html { redirect_to @vote.bill, flash: { success: 'Your support has been recorded.' } }
+          format.json { render :show, status: :created, location: @vote }
+        else
+          format.html { redirect_back fallback_location: root_path, warning: 'Sorry, there was an error.' }
+          format.json { render json: @vote.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_bill

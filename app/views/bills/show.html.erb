@@ -1,5 +1,12 @@
 <p id="notice"><%= notice %></p>
 
+  <h4>Do you like this bill?</h4>
+  <%= form_for @bill, url: { action: "vote", params: { bill_id: @bill.id, points: 1 } }, method: 'post' do |f| %>
+    <%= f.submit 'Support bill', class: 'btn btn-success btn-lg' %>
+  <% end %>
+  <%= form_for @bill, url: { action: "vote", params: { bill_id: @bill.id, points: -1 } }, method: 'post' do |f| %>
+    <%= f.submit 'Oppose bill', class: 'btn btn-success btn-lg' %>
+  <% end %>
   <h1><%= @bill.data['bill_id'] %>: <%= @bill.title.titlecase %></h1>
   <h3><%= link_to 'Official Bill Page', @bill.data['sources'][1]['url']  %></h3>
   <h3>Sponsors</h3>
