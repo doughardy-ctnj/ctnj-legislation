@@ -53,6 +53,10 @@ group :development do
   gem 'rb-fsevent'
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano-passenger'
+  gem 'capistrano-rvm'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
