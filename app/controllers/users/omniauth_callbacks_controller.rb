@@ -15,6 +15,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def failure
+    Rails.logger.info 'Request Environment Below'
+    Rails.logger.info request.env.inspect
     redirect_to root_path
   end
 end

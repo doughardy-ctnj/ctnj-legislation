@@ -22,6 +22,7 @@ Devise.setup do |config|
 
   config.omniauth :facebook, Rails.application.secrets.facebook_app_id,
                              Rails.application.secrets.facebook_app_secret
+  OmniAuth.config.logger = Rails.logger
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
