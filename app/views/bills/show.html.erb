@@ -25,7 +25,9 @@
       </tr>
     <% end %>
   </table>
-  <h3>Bill Text</h3>
-  <%= raw @bill.text[0]['Text'] %>
+  <% if @bill.text %>
+    <h3>Bill Text</h3>
+    <%= raw @bill.text[0]['Text'] %>
+  <% end %>
 
 <%= link_to 'Back', bills_path %>
