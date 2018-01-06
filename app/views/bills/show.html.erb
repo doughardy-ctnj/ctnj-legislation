@@ -7,13 +7,19 @@
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));</script>
 
+  <h3>Points: <%= @bill.votes.sum(:points) || 0 %></h3>
+
   <h4>Do you like this bill?</h4>
-  <%= form_for @bill, url: { action: "vote", params: { bill_id: @bill.id, points: 1 } }, method: 'post' do |f| %>
-    <%= f.submit 'Support bill', class: 'btn btn-success btn-lg' %>
-  <% end %>
-  <%= form_for @bill, url: { action: "vote", params: { bill_id: @bill.id, points: -1 } }, method: 'post' do |f| %>
-    <%= f.submit 'Oppose bill', class: 'btn btn-success btn-lg' %>
-  <% end %>
+  <div class="row">
+    <%= form_for @bill, url: { action: "vote", params: { bill_id: @bill.id, points: 1 } }, method: 'post', html: { class: 'form-group col-xs-6' } do |f| %>
+      <%= f.submit 'Support bill', class: 'btn btn-success btn-lg' %>
+    <% end %>
+
+    <%= form_for @bill, url: { action: "vote", params: { bill_id: @bill.id, points: -1 } }, method: 'post', html: { class: 'form-group col-xs-6' } do |f| %>
+      <%= f.submit 'Oppose bill', class: 'btn btn-danger btn-lg' %>
+    <% end %>
+  </div>
+
   <h1><%= @bill.data['bill_id'] %>: <%= @bill.title.titlecase %></h1>
   <h3><%= link_to 'Official Bill Page', @bill.data['sources'][1]['url']  %></h3>
   <h3>Sponsors</h3>
@@ -36,4 +42,4 @@
     <h3>Bill Text</h3>
     <%= raw @bill.text[0]['Text'] %>
   <% end %>
-  <div class="fb-comments" data-href="<%= request.url %>" data-numposts="5"></div>
+  <div class="fb-comments" data-href="<%= request.url %>" data-numposts="5" data-width="100%"></div>
