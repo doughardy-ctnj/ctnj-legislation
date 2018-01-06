@@ -4,7 +4,11 @@ class BillsController < ApplicationController
   # GET /bills
   # GET /bills.json
   def index
-    @bills = Bill.all
+    @bills = if params[:term]
+               Bill.search_by_title(params[:term])
+             else
+               Bill.all.limit(20)
+             end
     authorize @bills
   end
 

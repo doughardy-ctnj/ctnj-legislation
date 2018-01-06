@@ -1,5 +1,10 @@
 <h1>Bills</h1>
 
+<%= form_tag bills_path, method: :get do %>
+  <%= text_field_tag 'term', params[:term], placeholder: "Enter bill title" %>
+  <%= submit_tag 'Search' %>
+<% end %>
+
 <table class="table table-striped table-responsive">
   <thead>
     <tr>
