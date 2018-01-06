@@ -5,6 +5,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: %i(facebook)
+  after_initialize :set_default_role, :if => :new_record?
+  enum role: [:user, :admin]
+
+  def set_default_role
+    self.role ||= :user
+  end
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

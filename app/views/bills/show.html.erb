@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
   <h4>Do you like this bill?</h4>
   <%= form_for @bill, url: { action: "vote", params: { bill_id: @bill.id, points: 1 } }, method: 'post' do |f| %>
     <%= f.submit 'Support bill', class: 'btn btn-success btn-lg' %>
