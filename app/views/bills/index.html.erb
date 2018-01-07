@@ -1,7 +1,7 @@
 <h1>Bills</h1>
 
 <%= form_tag bills_path, method: :get do %>
-  <%= text_field_tag 'term', params[:term], placeholder: "Enter bill title" %>
+  <%= text_field_tag 'term', params[:term], placeholder: "Search bill text" %>
   <%= submit_tag 'Search' %>
 <% end %>
 
