@@ -7,7 +7,7 @@ class BillsController < ApplicationController
     @bills = if params[:term]
                Bill.all.search_by_text(params[:term])
              else
-               Bill.all.limit(20)
+               Bill.order(votes_count: :desc).limit(20)
              end
     authorize @bills
   end
