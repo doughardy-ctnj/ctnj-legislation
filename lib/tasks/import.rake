@@ -68,16 +68,15 @@ namespace :import do
         # Bill Name
         processed_bill_text['Name'] = parsed_text.css('p font b i')[1].text
         # Bill Text
-        parsed_text.css('html > body > p > font[face="Book Antiqua"] text()').wrap('<p>')
-        processed_bill_text['Text'] = parsed_text.css('html > body > p > font[face="Book Antiqua"]').inner_html
-        processed_bill_text['url'] = version['url']
-        # binding.pry if processed_bill_text['Number'].try(:include?, '5341')
-        if processed_bill_text['Text'].match(/\(<\/p>[\n]<i><p>(Effective\s{1}\w+\s\d+,\s\d+)<\/p><\/i><p>\)(:<\/p>)?/)
-          replacement = '<p>' + processed_bill_text['Text'].match(/\(<\/p>[\n]<i><p>(Effective\s{1}\w+\s\d+,\s\d+)<\/p><\/i><p>\)(:<\/p>)?/)[1] + '</p>'
-          processed_bill_text['Text'].gsub!(/\(<\/p>[\n]<i><p>(Effective\s{1}\w+\s\d+,\s\d+)<\/p><\/i><p>\)(:<\/p>)?/, replacement)
+        processed_bill_text['Text'] = String.new
+        parsed_text.css('html > body > p > font[face="Book Antiqua"]').each do |paragraph|
+          processed_bill_text['Text'] << '<p>' + paragraph.inner_html + '</p>'
         end
+        processed_bill_text['Text'].gsub!(/(<b>|<\/b>)/, "")
+        processed_bill_text['Text'].gsub!(/\[/, "<span class=\"remove\">")
+        processed_bill_text['Text'].gsub!(/\]/, "</span>")
+        processed_bill_text['url'] = version['url']
         every_bill_version << processed_bill_text
-        # TODO: Figure out how to process and save alternate format by identifying it.
       end
       bill.text = every_bill_version
       bill.save
