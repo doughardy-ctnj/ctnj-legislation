@@ -1,6 +1,24 @@
 require 'net/ftp'
 
 namespace :import do
+  desc 'Latest bill data from Open States API'
+  task latest_bill_data: :environment do
+    response = Faraday.get "https://openstates.org/api/v1/bills/?state=ct&&apikey=#{Rails.application.secrets.openstates_api_key}&updated_since=#{Date.yesterday.to_s}"
+    JSON.parse(response.body).each do |bill|
+      bill_response = Faraday.get "https://openstates.org/api/v1/bills/#{bill['id']}/?apikey=#{Rails.application.secrets.openstates_api_key}"
+      bill_data = JSON.parse(bill_response.body)
+      a = Bill.find_or_initialize_by(openstate_id: bill_data['id'])
+      a.bill_id = bill_data['bill_id']
+      a.openstate_id = bill_data['id']
+      a.title = bill_data['title']
+      a.data = bill_data
+      a.text = nil
+      a.save!
+    end
+    Rake::Task["import:bill_text"].invoke
+    Rake::Task["import:bill_text_to_database"].invoke
+  end
+
   desc 'Import bill data locally'
   task local_bill_data: :environment do
     lower_bill_files = Dir.entries(Rails.root.join('lib', 'import', '2016', 'lower')).reject{ |entry| entry =~ /^\.{1,2}$/ }
@@ -36,7 +54,7 @@ namespace :import do
         download_urls << version['url']
       end
     end
-    download_files(download_urls)
+    download_files(download_urls) if download_urls.count > 0
   end
 
   desc 'Import bill text to database'

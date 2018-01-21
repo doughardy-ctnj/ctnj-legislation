@@ -24,7 +24,7 @@ set :repo_url, "git@github.com:mzagaja/ctnj-legislation.git"
 append :linked_files, "config/database.yml", "config/secrets.yml.key"
 
 # Default value for linked_dirs is []
-append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system", "tmp/bills"
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }

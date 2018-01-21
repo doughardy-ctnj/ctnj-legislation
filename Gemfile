@@ -40,6 +40,7 @@ gem 'devise'
 gem 'omniauth-facebook'
 gem 'pundit'
 gem 'pg_search'
+gem 'faraday'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
