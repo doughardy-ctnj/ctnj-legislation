@@ -3,7 +3,10 @@ require 'net/ftp'
 namespace :import do
   desc 'Latest bill data from Open States API'
   task latest_bill_data: :environment do
-    response = Faraday.get "https://openstates.org/api/v1/bills/?state=ct&&apikey=#{Rails.application.secrets.openstates_api_key}&updated_since=#{Date.yesterday.to_s}"
+    # Should probably run this at 11 p.m. nightly
+    last_updated = Bill.order(:open_states_updated_at).last.open_states_updated_at.to_s
+    response = Faraday.get "https://openstates.org/api/v1/bills/?state=ct&&apikey=#{Rails.application.secrets.openstates_api_key}&updated_since=#{last_updated}"
+    puts 'Bill count: ' + JSON.parse(response.body).count.to_s
     JSON.parse(response.body).each do |bill|
       bill_response = Faraday.get "https://openstates.org/api/v1/bills/#{bill['id']}/?apikey=#{Rails.application.secrets.openstates_api_key}"
       bill_data = JSON.parse(bill_response.body)
@@ -12,6 +15,7 @@ namespace :import do
       a.openstate_id = bill_data['id']
       a.title = bill_data['title']
       a.data = bill_data
+      a.open_states_updated_at = Date.parse(bill_data['updated_at'])
       a.text = nil
       a.save!
     end
@@ -31,6 +35,7 @@ namespace :import do
       a.openstate_id = bill_data['id']
       a.title = bill_data['title']
       a.data = bill_data
+      a.open_states_updated_at = DateTime.parse(bill_data['updated_at'])
       a.save!
     end
 
@@ -41,6 +46,7 @@ namespace :import do
       a.openstate_id = bill_data['id']
       a.title = bill_data['title']
       a.data = bill_data
+      a.open_states_updated_at = DateTime.parse(bill_data['updated_at'])
       a.save!
     end
   end
