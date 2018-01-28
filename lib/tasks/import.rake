@@ -110,16 +110,15 @@ namespace :import do
   private
 
   def download_files(urls)
-    puts "File count: #{urls.count}"
+    Rails.logger.info "File count: #{urls.count}"
     parsed_uri = URI.parse(urls.first)
     BasicSocket.do_not_reverse_lookup = true
     ftp = Net::FTP.new(parsed_uri.hostname, 'anonymous', 'guest')
     urls.each do |url|
       begin
         ftp.getbinaryfile(URI.parse(url).path, Rails.root.join('tmp', 'bills', File.basename(URI.parse(url).path)))
-        print '.'
-      rescue Net::FTPPermError => e
-        puts "warning: can't download #{File.basename(file).to_s} from the remote server (#{e.message.tr("\n","")})."
+      rescue StandardError => e
+        Rails.logger.error "warning: can't download #{File.basename(file).to_s} from the remote server (#{e.message.tr("\n","")})."
         next
       end
     end
