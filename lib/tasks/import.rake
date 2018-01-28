@@ -6,7 +6,7 @@ namespace :import do
     # Should probably run this at 11 p.m. nightly
     last_updated = Bill.order(:open_states_updated_at).last.open_states_updated_at.to_s
     response = Faraday.get "https://openstates.org/api/v1/bills/?state=ct&&apikey=#{Rails.application.secrets.openstates_api_key}&updated_since=#{last_updated}"
-    puts 'Bill count: ' + JSON.parse(response.body).count.to_s
+    Rails.logger.info 'Open States Download Bill count: ' + JSON.parse(response.body).count.to_s
     JSON.parse(response.body).each do |bill|
       bill_response = Faraday.get "https://openstates.org/api/v1/bills/#{bill['id']}/?apikey=#{Rails.application.secrets.openstates_api_key}"
       bill_data = JSON.parse(bill_response.body)
@@ -17,7 +17,7 @@ namespace :import do
       a.data = bill_data
       a.open_states_updated_at = Date.parse(bill_data['updated_at'])
       a.text = nil
-      a.save!
+      a.save
     end
     Rake::Task["import:bill_text"].invoke
     Rake::Task["import:bill_text_to_database"].invoke

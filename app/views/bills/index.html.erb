@@ -1,9 +1,14 @@
-<h1>Bills</h1>
+<h1>Bills in the Connecticut General Assembly</h1>
+<div class="col-xs-8 input-group input-group-lg">
+  <span class="input-group-btn">
+    <%= form_tag bills_path, method: :get do %>
+      <%= text_field_tag 'term', params[:term], placeholder: "Search bill text", class: 'form-control', 'aria-describedby': 'sizing-addon1' %>
+      <%= submit_tag 'Search', class: 'btn btn-default' %>
+    <% end %>
+  </span>
+</div>
 
-<%= form_tag bills_path, method: :get do %>
-  <%= text_field_tag 'term', params[:term], placeholder: "Search bill text" %>
-  <%= submit_tag 'Search' %>
-<% end %>
+<br>
 
 <table class="table table-striped table-responsive">
   <thead>
@@ -15,6 +20,26 @@
 
   <tbody>
     <% @bills.each do |bill| %>
+      <tr>
+        <td class="col-md-1"><%= bill.bill_id %></td>
+        <td class="col-md-11"><%= link_to bill do %><%= bill.title.titlecase %><% end %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Citizens are recently feeling strongly about:</h2>
+
+<table class="table table-striped table-responsive">
+  <thead>
+    <tr>
+      <th>Bill</th>
+      <th>Title</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bills_with_recent_activity.each do |bill| %>
       <tr>
         <td class="col-md-1"><%= bill.bill_id %></td>
         <td class="col-md-11"><%= link_to bill do %><%= bill.title.titlecase %><% end %></td>
