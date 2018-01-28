@@ -51,9 +51,7 @@
   </div>
   <div id="text" class="tab-pane fade">
     <h3>Bill Text</h3>
-    <% if @bill.text %>
-      <%= raw @bill.text[0]['Text'] %>
-    <% end %>
+    <%= raw latest_bill_text(@bill) %>
   </div>
 </div>
 
