@@ -7,7 +7,8 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
-<h3>CTNewsJunkie Reader Support Score: <%= @bill.votes.sum(:points) || 0 %></h3>
+<h3>CTNewsJunkie Reader Support Score: 👍 <%= thumbs_up_vote_count(@bill) || 0 %> 👎 <%= thumbs_down_vote_count(@bill) || 0 %></h3>
+
 <div class="row">
   <%= form_for @bill, url: { action: "vote", params: { bill_id: @bill.id, points: 1 } }, method: 'post', html: { class: 'form-group col-xs-6' } do |f| %>
     <%= f.submit 'Support bill', class: 'btn btn-success btn-lg' %>
