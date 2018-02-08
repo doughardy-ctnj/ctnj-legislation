@@ -13,6 +13,7 @@
 <table class="table table-striped table-responsive">
   <thead>
     <tr>
+      <th>Session</th>
       <th>Bill</th>
       <th>Title</th>
     </tr>
@@ -21,6 +22,7 @@
   <tbody>
     <% @bills.each do |bill| %>
       <tr>
+        <td class="col-md-1"><%= bill.data['session'] %></td>
         <td class="col-md-1"><%= bill.bill_id %></td>
         <td class="col-md-11"><%= link_to bill do %><%= bill.title.titlecase %><% end %></td>
       </tr>
