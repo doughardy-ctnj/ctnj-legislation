@@ -1,8 +1,18 @@
 class Bill < ApplicationRecord
   include PgSearch
+  include ActiveSupport::Inflector
   has_many :votes
+  before_save :sluggify
+
+  def to_param
+    parameterize(session_number)
+  end
 
   private
+
+  def sluggify
+    self.session_number = parameterize(data['session'] + data['bill_id'])
+  end
 
   def self.search_formatted_terms(terms)
     terms.gsub(/\s{1}/, ' & ')
