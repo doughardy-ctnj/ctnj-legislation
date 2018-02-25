@@ -107,6 +107,19 @@ namespace :import do
     end
   end
 
+
+  desc 'Fix funky sponsor names'
+  task fix_sponsor_names: :environment do
+    Bill.all.each do |bill|
+      bill.data['sponsors'].each do |sponsor|
+        sponsor['name'].gsub!(/b/,'')
+        sponsor['name'].gsub!(/'/,'')
+        sponsor['name'].gsub!(/\,/,'')
+      end
+      bill.save
+    end
+  end
+
   private
 
   def download_files(urls)
