@@ -24,6 +24,16 @@ $ctnj-gray: #666666;
 $ctnj-headline-color: #37469b;
 $ctnj-background-blue: #cccce0;
 
+a {
+  color: $ctnj-blue;
+}
+
+a:hover {
+  text-decoration: none;
+  color: $ctnj-orange;
+  background-color: transparent;
+}
+
 h1, h2, h3, h4, h5, h6 {
   color: $ctnj-headline-color;
 }
