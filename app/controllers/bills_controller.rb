@@ -7,9 +7,9 @@ class BillsController < ApplicationController
     @bills = if params[:term]
                Bill.all.search_by_text(params[:term])
              else
-               Bill.order(open_states_updated_at: :desc).limit(10)
+               Bill.order(open_states_updated_at: :desc).limit(5)
              end
-    @bills_with_recent_activity = Bill.find(Vote.order(:created_at).last(5).pluck(:bill_id))
+    @bills_with_recent_activity = Bill.find(Vote.order(:created_at).pluck(:bill_id).uniq.last(15))
     authorize @bills
   end
 
