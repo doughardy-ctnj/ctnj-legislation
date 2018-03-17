@@ -42,6 +42,7 @@ gem 'pundit'
 gem 'pg_search'
 gem 'faraday'
 gem 'turbolinks', '~> 5.0.0'
+gem 'sitemap_generator'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
