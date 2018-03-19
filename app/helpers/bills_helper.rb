@@ -1,7 +1,7 @@
 module BillsHelper
   def latest_bill_text(bill)
     if bill.text
-      bill.text.last['Text']
+      bill.text.last['Text'] if bill.text.last
     else
       'No bill text available.'
     end
