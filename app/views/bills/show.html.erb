@@ -17,6 +17,9 @@
    }(document, 'script', 'facebook-jssdk'));
 </script>
 
+<h3>Share:</h3> <%= link_to("https://twitter.com/intent/tweet?text=Check out "+@bill.title+" on @ctnewsjunkie&url="+request.url, class: 'twitter', target: '_blank') do %><%= fa_icon 'twitter', text: 'Twitter' %><% end %>
+<%= link_to("http://www.facebook.com/sharer/sharer.php?u="+request.url, class: 'facebook', target: '_blank') do %><%= fa_icon 'facebook', text: 'Facebook' %><% end %>
+
 <h3>👍 <%= thumbs_up_vote_count(@bill) || 0 %> 👎 <%= thumbs_down_vote_count(@bill) || 0 %></h3>
 
 <div class="row">
