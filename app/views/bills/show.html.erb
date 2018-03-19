@@ -39,8 +39,8 @@
   <li class="active"><a data-toggle="tab" href="#sponsors">Sponsors</a></li>
   <li><a data-toggle="tab" href="#actions">Actions</a></li>
   <li><a data-toggle="tab" href="#text">Bill Text</a></li>
-  <li><%= link_to 'Related Articles', related_articles_url(@bill) %></li>
-  <li><%= link_to 'Official Bill Page', @bill.data['sources'][1]['url'] %></li>
+  <li><a data-toggle="tab" href="#related">Related Articles</a></li>
+  <li><%= link_to 'Official Bill Page', @bill.data['sources'][1]['url']  %></li>
 </ul>
 
 <div class="tab-content">
@@ -67,6 +67,20 @@
   <div id="text" class="tab-pane fade">
     <h3>Bill Text</h3>
     <%= raw latest_bill_text(@bill) %>
+  </div>
+  <div id="related" class="tab-pane fade">
+    <h3>Related Articles</h3>
+    <div id="article-list"></div>
+        <script>
+          function insertRelatedArticles(response) {
+          if (typeof response.items !== 'undefined') {
+            for (var i = 0; i < response.items.length; i++) {
+              var item = response.items[i];
+              document.getElementById("article-list").innerHTML += "<li><a href=\"" + item.link + "\">" + item.title + "</a></li>";
+            }
+          }
+        }
+        </script>
   </div>
 </div>
 
