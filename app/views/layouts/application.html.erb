@@ -11,11 +11,27 @@
     <meta property="og:type" content="website" />
     <meta property="fb:app_id" content="157893488165572" />
     <!-- <meta property="og:image" content="<%= image_url("social-graph-default.jpg") %>" /> -->
+    <!-- Broadstreet Header Code -->
+    <script src="https://cdn.broadstreetads.com/init-2.min.js"></script>
+    <script>broadstreet.watch({ networkId: 15 })</script>
+    <!-- End Broadstreet Header Code -->
   </head>
 
   <body>
     <div class="container">
-    <div class="row ad" street-address="81287"></div>
+      <div class="row">
+        <!-- Broadstreet Billboard Zone Code -->
+        <broadstreet-zone zone-id="59710"></broadstreet-zone>
+        <!-- End Broadstreet Billboard Zone Code -->
+
+        <!-- Broadstreet Sticky Note Zone Code -->
+        <broadstreet-zone zone-id="57956"></broadstreet-zone>
+        <!-- End Broadstreet Sticky Note Zone Code -->
+
+        <!-- Broadstreet Interstitial / Roadblock Zone Code -->
+        <broadstreet-zone zone-id="63470"></broadstreet-zone>
+        <!-- End Broadstreet Interstitial / Roadblock Zone Code -->
+      </div>
     <div class="row header">
       <div class="col-md-5 col-xs-12 logo">
         <%= link_to(bills_url) do %><%= image_tag('ctnj-logo.png', class: 'img-responsive') %><% end %>
@@ -43,12 +59,23 @@
       </div>
     </div>
     <div class="row content">
-      <% flash.each do |key, value| %>
-        <div class="<%= flash_class(key) %>">
-          <%= value %>
-        </div>
-      <% end %>
-      <%= yield %>
+      <div class="col-xs-12 col-md-8">
+        <% flash.each do |key, value| %>
+          <div class="<%= flash_class(key) %>">
+            <%= value %>
+          </div>
+        <% end %>
+        <%= yield %>
+      </div>
+      <div class="col-xs-12 col-md-4">
+        <!-- Broadstreet RightCol Desktop/Tablet-Open-Zone Code -->
+        <broadstreet-zone zone-id="64570"></broadstreet-zone>
+        <broadstreet-zone zone-id="64570"></broadstreet-zone>
+        <broadstreet-zone zone-id="64570"></broadstreet-zone>
+        <broadstreet-zone zone-id="64570"></broadstreet-zone>
+        <broadstreet-zone zone-id="64570"></broadstreet-zone>
+        <!-- End Broadstreet RightCol Desktop/Tablet-Open-Zone Code -->
+      </div>
     </div>
     <div class="row footer">
       This product is for research only. CTNewsJunkie does not endorse any legislation referenced on this site or candidates for office.

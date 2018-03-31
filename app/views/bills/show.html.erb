@@ -17,6 +17,8 @@
    }(document, 'script', 'facebook-jssdk'));
 </script>
 
+<%= raw @bill.ad_code %>
+
 <h3>Share:</h3> <%= link_to("https://twitter.com/intent/tweet?text=Check out "+@bill.title+" on @ctnewsjunkie&url="+request.url, class: 'twitter', target: '_blank') do %><%= fa_icon 'twitter', text: 'Twitter' %><% end %>
 <%= link_to("http://www.facebook.com/sharer/sharer.php?u="+request.url, class: 'facebook', target: '_blank') do %><%= fa_icon 'facebook', text: 'Facebook' %><% end %>
 
