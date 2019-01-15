@@ -5,19 +5,19 @@ namespace :import do
   task latest_bill_data: :environment do
     # Should probably run this at 11 p.m. nightly
     last_updated = Bill.order(:open_states_updated_at).last.open_states_updated_at.to_s
-    response = Faraday.get "https://openstates.org/api/v1/bills/?state=ct&&apikey=#{Rails.application.secrets.openstates_api_key}&updated_since=#{last_updated}"
+    response = Faraday.get "https://openstates.org/api/v1/bills/?state=ct&&apikey=#{Rails.application.secrets.openstates_api_key}&updated_since=#{last_updated}&page=1&per_page=1000"
     Rails.logger.info 'Open States Download Bill count: ' + JSON.parse(response.body).count.to_s
     JSON.parse(response.body).each do |bill|
       bill_response = Faraday.get "https://openstates.org/api/v1/bills/#{bill['id']}/?apikey=#{Rails.application.secrets.openstates_api_key}"
       bill_data = JSON.parse(bill_response.body)
-      a = Bill.find_or_initialize_by(openstate_id: bill_data['id'])
-      a.bill_id = bill_data['bill_id']
-      a.openstate_id = bill_data['id']
-      a.title = bill_data['title']
-      a.data = bill_data
-      a.open_states_updated_at = Date.parse(bill_data['updated_at'])
-      a.text = nil
-      a.save
+      Bill.find_or_create_by(openstate_id: bill_data['id']) do |bill|
+        bill.bill_id = bill_data['bill_id']
+        bill.openstate_id = bill_data['id']
+        bill.title = bill_data['title']
+        bill.data = bill_data
+        bill.open_states_updated_at = Date.parse(bill_data['updated_at'])
+        bill.text = nil
+      end
     end
     Rake::Task["import:bill_text"].invoke
     Rake::Task["import:bill_text_to_database"].invoke
