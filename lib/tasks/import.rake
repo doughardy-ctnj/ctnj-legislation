@@ -7,16 +7,14 @@ namespace :import do
     last_updated = Bill.order(:open_states_updated_at).last.open_states_updated_at.to_s
     response = Faraday.get "https://openstates.org/api/v1/bills/?state=ct&&apikey=#{Rails.application.secrets.openstates_api_key}&updated_since=#{last_updated}&page=1&per_page=1000"
     Rails.logger.info 'Open States Download Bill count: ' + JSON.parse(response.body).count.to_s
-    JSON.parse(response.body).each do |bill|
-      bill_response = Faraday.get "https://openstates.org/api/v1/bills/#{bill['id']}/?apikey=#{Rails.application.secrets.openstates_api_key}"
-      bill_data = JSON.parse(bill_response.body)
-      Bill.find_or_create_by(openstate_id: bill_data['id']) do |bill|
-        bill.bill_id = bill_data['bill_id']
-        bill.openstate_id = bill_data['id']
-        bill.title = bill_data['title']
-        bill.data = bill_data
-        bill.open_states_updated_at = Date.parse(bill_data['updated_at'])
-        bill.text = nil
+    JSON.parse(response.body).each do |remote_bill|
+      Bill.find_or_create_by(openstate_id: remote_bill['id']) do |local_bill|
+        local_bill.bill_id = remote_bill['bill_id']
+        local_bill.openstate_id = remote_bill['id']
+        local_bill.title = remote_bill['title']
+        local_bill.data = remote_bill
+        local_bill.open_states_updated_at = Date.parse(remote_bill['updated_at'])
+        local_bill.text = nil
       end
     end
     Rake::Task["import:bill_text"].invoke
