@@ -8,9 +8,10 @@ namespace :import do
     response = Faraday.get "https://openstates.org/api/v1/bills/?state=ct&&apikey=#{Rails.application.secrets.openstates_api_key}&updated_since=#{last_updated}&page=1&per_page=1000"
     Rails.logger.info 'Open States Download Bill count: ' + JSON.parse(response.body).count.to_s
     JSON.parse(response.body).each do |remote_bill|
-      Bill.find_or_create_by(openstate_id: remote_bill['id']) do |local_bill|
+      openstate_id = (remote_bill['state'] + remote_bill['session'] + remote_bill['bill_id']).delete(" \t\r\n")
+      Bill.find_or_create_by(openstate_id: openstate_id) do |local_bill|
         local_bill.bill_id = remote_bill['bill_id']
-        local_bill.openstate_id = remote_bill['id']
+        local_bill.openstate_id = openstate_id
         local_bill.title = remote_bill['title']
         local_bill.data = remote_bill
         local_bill.open_states_updated_at = Date.parse(remote_bill['updated_at'])
