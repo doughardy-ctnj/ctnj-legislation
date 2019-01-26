@@ -40,7 +40,9 @@
 <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#sponsors">Sponsors</a></li>
   <li><a data-toggle="tab" href="#actions">Actions</a></li>
-  <li><a data-toggle="tab" href="#text">Bill Text</a></li>
+  <% if @bill.text.present? %>
+    <li><a data-toggle="tab" href="#text">Bill Text</a></li>
+  <% end %>
   <li><a data-toggle="tab" href="#related">Related Articles</a></li>
   <li><%= link_to 'Official Bill Page', @bill.data['sources'][1]['url']  %></li>
 </ul>
@@ -66,10 +68,12 @@
       <% end %>
     </table>
   </div>
-  <div id="text" class="tab-pane fade">
-    <h3>Bill Text</h3>
-    <%= raw latest_bill_text(@bill) %>
-  </div>
+  <% if @bill.text.present? %>
+    <div id="text" class="tab-pane fade">
+      <h3>Bill Text</h3>
+      <%= raw latest_bill_text(@bill) %>
+    </div>
+  <% end %>
   <div id="related" class="tab-pane fade">
     <h3>Related Articles</h3>
     <div id="article-list"></div>
